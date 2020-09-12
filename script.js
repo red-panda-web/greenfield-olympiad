@@ -4,5 +4,5 @@ var mainSwiper = new Swiper('.swiper-container', {
 	},
 	speed: 5000,
 	freeMode: true,
-	simulateTouch: false,
+	//simulateTouch: false,
 });
