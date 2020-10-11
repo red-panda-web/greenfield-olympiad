@@ -3,6 +3,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
 @import url('https://allfont.ru/allfont.css?fonts=peterburg');
 
+@font-face {
+	font-family: 'OpiumNewC';
+	src: url('../../fonts/Opiumnewc.eot');
+	src: local('☺'), url('../../fonts/Opiumnewc.woff') format('woff'), url('../../fonts/Opiumnewc.ttf') format('truetype'), url('../../fonts/Opiumnewc.svg') format('svg');
+	font-weight: bold;
+	font-style: normal;
+}
+
+
 $maxWidth: 1980;
 @mixin adaptiv-font($pcSize, $mobSize){
 	$addSize: $pcSize - $mobSize;
@@ -25,12 +34,13 @@ body{
 header{
 	display: flex;
 	justify-content: space-between;
-	padding: 25px 45px;
+	padding: 25px 48px;
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
-	z-index: 5;
+	z-index: 3;
+	visibility: visible;
 	@media (max-width:666px){
 		.header__lang{
 			display: none;
@@ -48,16 +58,58 @@ header{
 	}
 }
 
+.header__logo.hidd{
+	visibility: hidden;
+	transition: all 0.4s ease 0s;
+}
+
 .header__menu, .header__lang {
 	background-color: #fff;
 	width: 50px;
 	height: 50px;
 	border-radius: 50%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 	padding: 19px 14px;
 	margin-top: 5px;
+}
+
+.header__menu{
+	position: relative;
+	cursor: pointer;
+	span{
+		position: absolute;
+		width: 22px;
+		height: 2px;
+		border-radius: 10px;
+		background-color: #393838;
+		top: 50%;
+		transition: all 0.3s ease 0s;
+	}
+	span:first-child{
+		top: 36%;
+		transition: all 0.3s ease 0s;
+	}
+	span:last-child{
+		top: 63%;
+		transition: all 0.3s ease 0s;
+		width: 15px;
+	}
+
+}
+
+.header__menu.active{
+	span:first-child{
+		transform: rotate(45deg);
+		top: 50%;
+		transition: all 0.3s ease 0s;
+	}
+	span:nth-child(2){
+		transform: rotate(-45deg);
+		top: 50%;
+		transition: all 0.3s ease 0s;
+	}
+	span:last-child{
+		display: none;
+	}
 }
 
 .header__lang {
@@ -67,10 +119,6 @@ header{
 	}
 	p:last-child{
 		display: none;
-	}
-	&:hover{
-		height: 150px;
-		border-radius: 25%;
 	}
 }
 
@@ -436,31 +484,179 @@ header{
 	height: 100vh;
 }
 .five-slid__left-img {
-	flex: 1 1 30%;
-	position: relative;
-	//background: url("../../img/5s_left2.webp") -25% 16% no-repeat, url("../../img/5_slide1.webp") 0 0 no-repeat;
+	flex: 1 1 35%;
+	//position: relative;
+	background: /* url("../../img/5s_left2.webp") -25% 16% no-repeat, */ url("../../img/5_slide1.webp") 0 0 no-repeat;
 	//height: 100%;
-	padding: 0 34.5% 30% 0;
-	overflow: hidden;
-	border: 1px solid black;
-	//padding: 0 50% 0 0;
-	 img/* :nth-child(1) */{
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		position: absolute;
-	}  
+	//padding: 0 34.5% 30% 0;
+	//overflow: hidden;
+	//border: 1px solid black;
+	//padding: 0 50% 0 0;  
 	&:after{
 		content: '';
 		background: url("../../img/5s_left2.webp") 0 0 no-repeat;
 		position: absolute;
-		left: 0;
-		top: 0;
+		left: 2.5%;
+		top: 34%;
 		display: block;
 		width: 100%;
 		height: 100%;
-	}
+	} 
 }
 .five-slid__right-info {
-	flex: 1 1 70%;
+	flex: 1 1 65%;
+	color: #393838;
+	padding: 12% 0 0 15.5%;
+	h2{
+		@include adaptiv-font(70, 30);
+		line-height: 100%;
+		margin-bottom: 35px;
+	}
+	p{
+		font-family: 'Ubuntu', sans-serif;
+		@include adaptiv-font(18, 14);
+		letter-spacing: -0.2px;
+		line-height: 160%;
+		max-width: 892px;
+		margin-bottom: 100px;
+	}
+	a{
+		font-family: 'OpiumNewC';
+		color: #066035;
+		font-size: 18px;
+		font-weight: 700;
+		letter-spacing: -0.36px;
+		line-height: 30px;
+		border: 7px solid #066035;
+		padding: 18px 40px;
+	}
+}
+
+/////// menu-burger ///////////
+
+
+.menu {
+	position: fixed;
+	width: 57.5%;
+	height: 100%;
+	z-index: 2;
+	background-color: #fff;
+	display: flex;
+	left: -100%;
+	top: 0;
+	transition: all 0.6s ease 0s;
+	@media (max-width: 992px) {
+		width: 100%;
+	}
+	@media (max-width: 500px) {
+		padding: 0 0 10% 10%;
+		flex-direction: column;
+		overflow: auto;
+	}
+}
+
+.menu.active{
+	left: 0;
+}
+
+.menu__left {
+	padding: 23.5% 0 0 18.5%;
+	flex: 0 0 50%;
+	@media (max-width: 1270px) {
+		padding: 23.5% 0 0 9.5%;
+	}
+	@media (max-width: 500px) {
+		padding-left: 0;
+	}
+
+	ul:first-child{
+		margin-bottom: 33%;
+		@media (max-width: 500px) {
+			margin-bottom: 15%;
+		}
+
+		li{
+			margin-bottom: 7.2%;
+		}
+
+		a{
+			color: #202020;
+			font-family: "Playfair Display";
+			font-size: 30px;
+			line-height: 30px;
+			text-align: left;
+			border-bottom: 2px solid transparent;
+			&:hover{
+				border-bottom: 2px solid #202020;
+				transition: all 0.3s ease 0s;
+			}
+		}
+
+	} 
+	ul:last-child{
+		li{
+			margin-bottom: 7%;
+		}
+
+		a{
+			color: #202020;
+			font-family: 'Ubuntu', sans-serif;
+			font-size: 14px;
+			text-align: left;
+			border-bottom: 1px solid transparent;
+			&:hover{
+				border-bottom: 1px solid #202020;
+				transition: all 0.3s ease 0s;
+			}
+		}	
+	} 
+}
+
+.menu__right {
+	padding: 23.5% 0 0 3%;
+	@media (max-width: 500px) {
+		padding: 13.5% 0 0 0%;
+	}
+
+	h3{
+		color: #202020;
+		font-family: "Playfair Display";
+		font-size: 30px;
+		line-height: 30px;
+		text-align: left;
+		margin-bottom: 42px;
+	}
+}
+
+.menu__info{
+	color: #202020;
+	font-family: 'Ubuntu', sans-serif;
+	font-size: 14px;
+	text-align: left;
+
+	&:nth-child(2){
+		margin-bottom: 73px;
+		@media (max-width: 500px) {
+			margin-bottom: 33px;
+		}
+	}
+
+	&:nth-child(3), &:nth-child(4){
+		margin-bottom: 15px;
+	}
+
+	&:nth-child(6){
+		font-family: "Playfair Display";
+		font-size: 19px;
+		margin: 75px 0 22px 0;
+		@media (max-width: 500px) {
+			margin: 33px 0 22px 0;
+		}
+	}
+}
+
+.social__buttons {
+	a{
+		margin-right: 25px;
+	}
 }
